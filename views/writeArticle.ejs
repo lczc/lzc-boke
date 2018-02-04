@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="/css/weui.css">
+    <link rel="stylesheet" type="text/css" href="/css/basscss.css">
+    <link rel="stylesheet" type="text/css" href="/css/color.css">
+    <link rel="stylesheet" type="text/css" href="/css/index.css">
+    <script type="text/javascript" src="/js/axios.min.js"></script>
+    <script type="text/javascript" src="/js/weui.min.js"></script>
+    <style type="text/css">
+        #title {
+        display: block;
+        width: 40%;
+        height: 34px;
+        padding: 6px 12px;
+        font-size: 14px;
+        line-height: 1.428571429;
+        color: #555555;
+        vertical-align: middle;
+        background-color: #ffffff;
+        border: 1px solid #cccccc;
+        border-radius: 4px;
+        -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+        box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+        -webkit-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+        transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+    }
+    </style>
+</head>
+
+<body style="background: url(/images/top.jpg) no-repeat center top #075498;font: 14px " 微软雅黑 ", Arial, Helvetica, sans-serif;color:#fff;">
+    <div class="flex main-container mx-auto mt3">
+        <div class="header left h1 bold" style="color: #fff">LCZCの个人博客</div>
+    </div>
+    <div class="flex main-container mx-auto">
+        <div>
+          <div >
+            <ul class="list-style-none left-menu" >
+                <li><a href="/index" style="color: #fff">首页</a></li>
+                <li><a href="/articleList" style="color: #fff">文章</a></li>
+                <li><a style="color:#fff">关于我</a></li>
+                <li style="width: auto;border:1px solid gray;border-radius: 5px">
+                  <div>
+                    <div class="center"><img src="/images/mypic.jpg" style="width: 80px;height: 80px;border-radius: 50%;"></div>
+                    <div class="mt1 white"><a href="https://github.com/lczc" style="color: #fff;margin:10px 0">github</a><span class="ml1">给我留言</span></div>
+                  </div>
+                </li>
+            </ul>
+            <div class="mt2">
+    <iframe src="http://cdn.abowman.com/widgets/penguins/penguins.swf" width="160" height="155" scrolling="NO" frameborder="0"></iframe>
+</div>
+          </div>
+        </div>
+        <div style="flex: 1; padding: 10px;">
+            <div class="m2" style="margin-left: 0">
+                <input type="text" name="" id="title" placeholder="请输入标题">
+            </div>
+            <div class="mt2" style="color:#fff">
+                <div id="toolbar" class="toolbar bg-white">
+    </div>
+
+                    <div id="editor" style="height:600px;max-height:600px;border:1px solid #fff;border-right:none"></div>
+                    <button id="sureBtn">确认发布</button>
+            </div>
+        </div>
+    </div>
+    </div>
+</body>
+<script type="text/javascript" src="/js/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="/js/release/wangEditor.min.js"></script>
+<script type="text/javascript">
+    var editor = new wangEditor('#toolbar','#editor');
+    editor.customConfig.zIndex=100
+    editor.create();
+         $('#sureBtn').click(function () {
+        var content = editor.txt.html();
+        var title = document.getElementById('title').value;
+        var arr = {title:title, content: content };
+        axios.post('/article', arr).then(function(err, res) {
+            weui.toast('成功');
+        })
+        console.log(content)
+    });
+</script>
+</html>

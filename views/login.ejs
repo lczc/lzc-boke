@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>博客登录</title>
+    <link rel="stylesheet" type="text/css" href="/css/weui.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/basscss.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/color.css"/>
+    <script type="text/javascript" src="/js/axios.min.js"></script>
+    <script type="text/javascript" src="/js/weui.min.js"></script>
+    <script type="text/javascript" src="/js/jquery-3.2.1.min.js"></script>
+  </head>
+  <body>
+    <div class="p2 mx-auto" style="width: 640px;">
+      <div class="center">
+        <img src="/images/mypic.jpg" width="120px" height="120px;" style="border-radius: 50%">
+      </div>
+      <div style="width: 320px;" class="mx-auto">
+        <div class="weui-cells">
+          <div class="weui-cell">
+            <div class="weui-cell__bd">
+              <input id="mail" class="weui-input" placeholder="邮箱" />
+            </div>
+          </div>
+          <div class="weui-cell">
+            <div class="weui-cell__bd">
+              <input id="pwd" class="weui-input" placeholder="密码" />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="center m2" >
+        <button onclick="login()" style="width: 80px;" class="weui-btn weui-btn_plain-primary weui-btn_mini">登陆</button>
+      </div>
+    </div>
+  </body>
+  <script type="text/javascript">
+    function login() {
+      axios
+        .post("/login", {
+          mail: $("#mail").val(),
+          pwd: $("#pwd").val()
+        })
+        .then(function(res) {
+          console.log(res.data)
+          if(res.data == 'success'){
+            location.href = '/index'
+          }
+        });
+    }
+  </script>
+</html>

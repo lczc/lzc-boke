@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="/css/weui.css">
+    <link rel="stylesheet" type="text/css" href="/css/basscss.css">
+    <link rel="stylesheet" type="text/css" href="/css/color.css">
+    <link rel="stylesheet" type="text/css" href="/css/index.css">
+    <link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/js/axios.min.js"></script>
+    <script type="text/javascript" src="/js/weui.min.js"></script>
+    <script type="text/javascript" src="/js/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="/js/vue.dev.js"></script>
+</head>
+
+<body style="background: url(/images/top.jpg) no-repeat center top #075498;font: 14px " 微软雅黑 ", Arial, Helvetica, sans-serif;color:#fff;">
+    <div class="flex main-container mx-auto mt3 relative">
+        <div class="header left h1 bold" style="color: #fff">LCZCの个人博客</div>
+        <div class="absolute right-0 mt3 mr3"><button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+    写文章
+</button></div>
+    </div>
+    <div class="flex main-container mx-auto">
+        <div>
+          <div >
+            <ul class="list-style-none left-menu" >
+                <li><a href="/index" style="color: #fff">首页</a></li>
+                <li><a href="/articleList" style="color: #fff">文章</a></li>
+                <li><a  style="color: #fff">关于我</a></li>
+                <li style="width: auto;border:1px solid gray;border-radius: 5px">
+                  <div>
+                    <div class="center"><img src="/images/mypic.jpg" style="width: 80px;height: 80px;border-radius: 50%;"></div>
+                    <div class="mt1 white"><a href="https://github.com/lczc" style="color: #fff;margin:10px 0">github</a><span class="ml1">给我留言</span></div>
+                  </div>
+                </li>
+            </ul>
+            <div class="mt2">
+    <iframe src="http://cdn.abowman.com/widgets/penguins/penguins.swf" width="160" height="155" scrolling="NO" frameborder="0"></iframe>
+</div>
+          </div>
+        </div>
+        <div style="flex: 1; padding: 10px;">
+            <div class="mt2 " style="color:#fff">
+                    <h1 class="center"><%= articleResult.title %></h1>
+                    <div id="content" class="mt2 px3" style="font-size: 18px">
+                        <%- articleResult.content %>
+                    </div>
+            </div>
+            <div class="px3 white mt3"><span class="h3">最新评论</span><%if(articleResult.comments){%><div><%articleResult.comments.forEach(function(comment){%><div class="mt2 font-16 p2" style="border:1px solid #fff;border-radius:3px"><div class="mb1"><%=comment.name%>：<span class="right gray"><%=comment.date%></span></div><div><%=comment.text%></div></div><%})%></div><%}%></div>
+            <div class="px3" style="margin-top:200px"><span class="h3" style="color:#fff">发布评论:</span><br>
+  <input id="name" type="text" class="form-control mt1" id="inputSuccess"  style='color:#fff;background-color:transparent;border:1px solid #555555;border-radius:5px' placeholder='请输入昵称' />            
+  <textarea id = "text" style='color:#fff;width:100%;height:100px;background-color:transparent;border:1px solid #555555;border-radius:5px' class="form-control mt1" rows="3"  maxlength='-1' placeholder='请输入内容...' ></textarea>
+   <button id="sureBtn" onclick="sure('<%=articleResult._id%>')">确认</button>
+            </div>
+        </div>
+    </div>
+    </div>
+
+<!-- 模态框（Modal） -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">验证身份</h4>
+            </div>
+             <input type="text" class="form-control mt2 mb2" id="pwd" placeholder="请输入密码" >
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary" onclick="yanzh()">提交</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+
+</body>
+</html>
+<script type="text/javascript">
+     function sure(id) {
+         var comment = {}
+          comment.name = $('#name').val()
+          comment.text = $('#text').val()
+          comment.articleid = id
+         axios.post('/article/comment',comment).then(function(err, res) {
+            weui.toast('成功');
+        })
+     }
+     function yanzh(){
+        var pwd = $('#pwd').val();
+        if(pwd == 'lczc'){
+            location.href="/writeArticle"
+        }else{
+            weui.toast('错误')
+        }
+     }
+</script>

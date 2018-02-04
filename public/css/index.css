@@ -1,0 +1,32 @@
+.main-container {
+    max-width: 1280px;
+    min-width: 1024px;
+}
+
+.left-menu {
+    width: 160px;
+    list-style: none;
+    padding-top: 20px;
+}
+
+.left-menu li {
+    padding: 10px;
+}
+
+.left-menu a {
+    color: #333;
+    font-size: 18px;
+    font-weight: bolder;
+}
+#sureBtn {
+    background-color: #008cba; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 5px;
+    margin-top: 10px;
+}

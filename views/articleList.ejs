@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="/css/weui.css">
+    <link rel="stylesheet" type="text/css" href="/css/basscss.css">
+    <link rel="stylesheet" type="text/css" href="/css/color.css">
+    <link rel="stylesheet" type="text/css" href="/css/index.css">
+    <script type="text/javascript" src="/js/axios.min.js"></script>
+    <script type="text/javascript" src="/js/weui.min.js"></script>
+    <script type="text/javascript" src="/js/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="/js/vue.js"></script>
+<style type="text/css">
+    .readmore{
+    background: #075498;
+    color: #fff;
+    padding: 5px 10px;
+    float: right;
+    margin: 0px 0 0 0;
+    border-radius: 5px;
+    }
+    .ellipsis--l2 {
+  max-height: 40px;
+  line-height: 20px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+</style>
+</head>
+<body style="background: url(/images/top.jpg) no-repeat center top #075498;font: 14px "微软雅黑", Arial, Helvetica, sans-serif;color:#fff;">
+        <div class="flex main-container mx-auto mt3">
+        <div class="header left h1 bold" style="color: #fff">LCZCの个人博客</div>
+    </div>
+    <div class="flex main-container mx-auto">
+        <div>
+            <ul class="list-style-none left-menu">
+                <li><a href="/index" style="color: #fff">首页</a></li>
+                <li><a href="/articleList" style="color: #fff">文章</a></li>
+                <li><a  style="color: #fff">关于我</a></li>
+                <li style="width: auto;border:1px solid gray;border-radius: 5px">
+                  <div>
+                    <div class="center"><img src="/images/mypic.jpg" style="width: 80px;height: 80px;border-radius: 50%;"></div>
+                    <div class="mt1 white"><a href="https://github.com/lczc" style="color: #fff;margin:10px 0">github</a><span class="ml1">给我留言</span></div>
+                  </div>
+                </li>
+            </ul>
+            <div class="mt2">
+    <iframe src="http://cdn.abowman.com/widgets/penguins/penguins.swf" width="160" height="155" scrolling="NO" frameborder="0"></iframe>
+</div>
+        </div>
+        <div class="mt1" style="flex: 1; padding: 10px;">
+        <div><%articleResult.forEach(function(article,index){%>
+         <div class="p2 mt2 mb2 pb4" style="color:#fff;background:rgba(0,0,100,.2);border-radius:5px">
+         <div class="bold h2"><%=article.title%></div>
+         <div class="mb2 ellipsis--l2 h4"><%-article.content%></div>
+         <span class='readmore' onclick="readmore('<%=article._id%>')">阅读全文&gt;&gt;</span>
+         </div>
+        <%})%>
+        </div>
+      </div>
+    </div>
+    </div>
+</body>
+
+</html>
+<script type="text/javascript">
+        function readmore(id){
+            var articleid = id
+          axios.get('/articleDetail/'+articleid).then(function(){
+             location.href='/articleDetail/'+articleid; 
+           })
+        }
+</script>
