@@ -10,4 +10,5 @@
  1、git clone https://github.com/lczc/lzc-boke.git 克隆
  到本地存储。
  2、进入文件目录使用npm打包所有依赖 ： npm install
- 3、运行node 文件
+ 3、运行node 文件 app.js 启动整个框架 node start app.js
+ 4、访问loaclhost:1
